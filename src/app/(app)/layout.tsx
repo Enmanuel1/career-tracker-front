@@ -26,8 +26,10 @@ export default function ProtectedAppLayout({ children }: { children: React.React
 
   if (isLoading) {
     return (
-      <div className="p-6">
-        <LoadingState />
+      <div className="min-h-screen bg-[#F8FAFC] p-6">
+        <div className="mx-auto w-full max-w-7xl">
+          <LoadingState />
+        </div>
       </div>
     );
   }
