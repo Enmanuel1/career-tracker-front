@@ -8,9 +8,9 @@ import { PageHeader } from "@/components/shared/page-header";
 import { ApplicationsPagination } from "@/features/applications/components/applications-pagination";
 import { ApplicationsTable } from "@/features/applications/components/applications-table";
 import { ApplicationsToolbar } from "@/features/applications/components/applications-toolbar";
+import { CreateApplicationTrigger } from "@/features/applications/components/create-application-trigger";
 import { useApplications } from "@/features/applications/hooks/use-applications";
 import { getApiErrorMessage } from "@/lib/api/axios";
-import { ROUTES } from "@/lib/config/routes";
 
 const PAGE_SIZE = 10;
 
@@ -31,13 +31,18 @@ export default function ApplicationsPage() {
 
   return (
     <div className="space-y-5">
+      <PageHeader
+        title="Applications"
+        description="Manage and track your active job hunt progress."
+        actions={<CreateApplicationTrigger />}
+      />
+
       <ApplicationsToolbar
         searchValue={search}
         onSearchChange={(value) => {
           setSearch(value);
           setPage(1);
         }}
-        newApplicationHref={ROUTES.NEW_APPLICATION}
       />
 
       {applicationsQuery.isLoading ? <LoadingState /> : null}
