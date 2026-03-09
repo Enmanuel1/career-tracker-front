@@ -31,42 +31,48 @@ function getUserInitials(fullName?: string, email?: string) {
   return email?.slice(0, 2).toUpperCase() ?? "U";
 }
 
-export function AppTopbar({ title = "Career Tracker" }: AppTopbarProps) {
+export function AppTopbar({ title = "Dashboard" }: AppTopbarProps) {
   const { session } = useAuthSession();
   const initials = getUserInitials(session?.user.fullName, session?.user.email);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-[#E2E8F0] bg-white/95 backdrop-blur">
-      <div className="flex h-16 items-center gap-3 px-4 md:px-6">
-        <div className="min-w-0 flex-1">
-          <h1 className="truncate text-base font-semibold text-[#0F172A]">{title}</h1>
-        </div>
+    <header className="sticky top-0 z-30 border-b border-[#E2E8F0] bg-white">
+      <div className="flex h-16 items-center justify-between px-6">
+        <h1 className="text-2xl font-semibold text-[#0F172A]">{title}</h1>
 
-        <div className="hidden flex-1 justify-center lg:flex">
-          <div className="flex h-10 w-full max-w-md items-center gap-2 rounded-lg border border-[#E2E8F0] bg-[#F8FAFC] px-3 text-sm text-[#64748B]">
-            <HugeiconsIcon icon={AiSearchIcon} strokeWidth={1.8} className="size-4" />
-            <span>Search applications, contacts, reminders...</span>
-          </div>
-        </div>
-
-        <div className="flex flex-1 items-center justify-end gap-2">
+        <div className="flex items-center gap-2.5">
           <Button
-            variant="outline"
+            variant="ghost"
             size="icon-sm"
-            className="border-[#E2E8F0] bg-white text-[#475569] hover:bg-[#F8FAFC] hover:text-[#0F172A]"
+            className="cursor-pointer text-[#475569] hover:bg-[#F8FAFC] hover:text-[#0F172A]"
+            aria-label="Search"
+          >
+            <HugeiconsIcon icon={AiSearchIcon} strokeWidth={1.9} className="size-4" />
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            className="cursor-pointer text-[#475569] hover:bg-[#F8FAFC] hover:text-[#0F172A]"
             aria-label="Notifications"
           >
-            <HugeiconsIcon icon={BellDotIcon} strokeWidth={1.8} className="size-4" />
+            <HugeiconsIcon icon={BellDotIcon} strokeWidth={1.9} className="size-4" />
           </Button>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="flex size-9 items-center justify-center rounded-full border border-[#C7D2FE] bg-[#EEF2FF] text-xs font-semibold text-[#3730A3]"
-                aria-label="Open user menu"
+                className="hidden cursor-pointer items-center gap-3 border-l border-[#E2E8F0] pl-4 md:flex"
+                aria-label="User menu"
               >
-                {initials}
+                <div className="text-right leading-tight">
+                  <p className="text-sm font-semibold text-[#0F172A]">{session?.user.fullName || "Account"}</p>
+                  <p className="text-xs text-[#64748B]">Free Account</p>
+                </div>
+                <span className="flex size-9 items-center justify-center rounded-full border-2 border-[#6366F1] bg-[#EEF2FF] text-xs font-semibold text-[#3730A3]">
+                  {initials}
+                </span>
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-52">
@@ -75,13 +81,35 @@ export function AppTopbar({ title = "Career Tracker" }: AppTopbarProps) {
                 <p className="mt-0.5 text-[11px] text-[#64748B]">{session?.user.email || "user@example.com"}</p>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">
                 <HugeiconsIcon icon={User03Icon} strokeWidth={1.8} className="size-4" />
                 Profile
               </DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem variant="destructive">Sign out</DropdownMenuItem>
+              <DropdownMenuItem variant="destructive" className="cursor-pointer">
+                Sign out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                className="flex size-9 cursor-pointer items-center justify-center rounded-full border-2 border-[#6366F1] bg-[#EEF2FF] text-xs font-semibold text-[#3730A3] md:hidden"
+                aria-label="User menu"
+              >
+                {initials}
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-52">
+              <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive" className="cursor-pointer">
+                Sign out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
