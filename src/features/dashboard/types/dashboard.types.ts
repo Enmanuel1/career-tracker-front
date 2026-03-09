@@ -1,3 +1,5 @@
+import type { EventType } from "@/lib/presentation";
+
 export type DashboardSummary = {
   totalApplications: number;
   activeApplications: number;
@@ -7,14 +9,12 @@ export type DashboardSummary = {
   remindersDue: number;
 };
 
-export type DashboardActivityType = "application" | "interview" | "resume" | "message";
-
 export type DashboardActivityItem = {
   id: string;
   title: string;
   description: string;
   timestampLabel: string;
-  type: DashboardActivityType;
+  eventType: EventType;
 };
 
 export type DashboardReminderUrgency = "TODAY" | "IN_2_DAYS" | "THIS_WEEK";

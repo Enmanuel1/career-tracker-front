@@ -6,28 +6,28 @@ export const mockDashboardRecentActivity: DashboardActivityItem[] = [
     title: "Applied to Google",
     description: "Senior Frontend Engineer role submitted via careers page.",
     timestampLabel: "2h ago",
-    type: "application",
+    eventType: "APPLIED",
   },
   {
     id: "act-2",
     title: "Interview Scheduled",
     description: "Phone screen with Stripe recruiter confirmed for Tuesday.",
     timestampLabel: "5h ago",
-    type: "interview",
+    eventType: "PHONE_SCREEN",
   },
   {
     id: "act-3",
     title: "Resume Updated",
     description: "Tailored resume for product-focused frontend roles.",
     timestampLabel: "Yesterday",
-    type: "resume",
+    eventType: "NOTE",
   },
   {
     id: "act-4",
     title: "Message Received",
     description: "Hiring manager follow-up received for Notion application.",
     timestampLabel: "2d ago",
-    type: "message",
+    eventType: "EMAIL_RECEIVED",
   },
 ];
 

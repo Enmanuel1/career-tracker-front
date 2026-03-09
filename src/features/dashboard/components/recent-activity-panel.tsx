@@ -1,29 +1,10 @@
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  Briefcase01Icon,
-  Calendar03Icon,
-  File02Icon,
-  Mail01Icon,
-} from "@hugeicons/core-free-icons";
 
 import type { DashboardActivityItem } from "@/features/dashboard/types/dashboard.types";
+import { getEventTypeMeta } from "@/lib/presentation";
 
 type RecentActivityPanelProps = {
   items: DashboardActivityItem[];
-};
-
-const iconByType: Record<DashboardActivityItem["type"], React.ComponentProps<typeof HugeiconsIcon>["icon"]> = {
-  application: Briefcase01Icon,
-  interview: Calendar03Icon,
-  resume: File02Icon,
-  message: Mail01Icon,
-};
-
-const iconBackgroundByType: Record<DashboardActivityItem["type"], string> = {
-  application: "bg-[#ECFDF5] text-[#059669]",
-  interview: "bg-[#E0EAFF] text-[#2563EB]",
-  resume: "bg-[#F3E8FF] text-[#7C3AED]",
-  message: "bg-[#FEF3C7] text-[#C2410C]",
 };
 
 export function RecentActivityPanel({ items }: RecentActivityPanelProps) {
@@ -37,22 +18,29 @@ export function RecentActivityPanel({ items }: RecentActivityPanelProps) {
       </div>
 
       <div>
-        {items.map((item) => (
-          <article key={item.id} className="flex items-start gap-4 border-b border-[#E2E8F0] px-6 py-5 last:border-b-0">
-            <div
-              className={`mt-0.5 flex size-11 shrink-0 items-center justify-center rounded-xl ${iconBackgroundByType[item.type]}`}
+        {items.map((item) => {
+          const meta = getEventTypeMeta(item.eventType);
+
+          return (
+            <article
+              key={item.id}
+              className="flex items-start gap-4 border-b border-[#E2E8F0] px-6 py-5 last:border-b-0"
             >
-              <HugeiconsIcon icon={iconByType[item.type]} strokeWidth={1.9} className="size-5" />
-            </div>
+              <div
+                className={`mt-0.5 flex size-11 shrink-0 items-center justify-center rounded-xl ${meta.iconWrapperClassName ?? "bg-[#F1F5F9] text-[#475569]"}`}
+              >
+                {meta.icon ? <HugeiconsIcon icon={meta.icon} strokeWidth={1.9} className="size-5" /> : null}
+              </div>
 
-            <div className="min-w-0 flex-1">
-              <h3 className=" font-semibold leading-tight text-[#0F172A]">{item.title}</h3>
-              <p className="mt-1 text-base text-[#475569]">{item.description}</p>
-            </div>
+              <div className="min-w-0 flex-1">
+                <h3 className="font-semibold leading-tight text-[#0F172A]">{item.title}</h3>
+                <p className="mt-1 text-base text-[#475569]">{item.description}</p>
+              </div>
 
-            <span className="pt-1 text-sm text-[#64748B]">{item.timestampLabel}</span>
-          </article>
-        ))}
+              <span className="pt-1 text-sm text-[#64748B]">{item.timestampLabel}</span>
+            </article>
+          );
+        })}
       </div>
     </section>
   );

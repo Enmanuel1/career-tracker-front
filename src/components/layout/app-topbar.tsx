@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useSignOut } from "@/features/auth/hooks/use-sign-out";
 import { useAuthSession } from "@/hooks/use-auth-session";
 
 type AppTopbarProps = {
@@ -33,6 +34,7 @@ function getUserInitials(fullName?: string, email?: string) {
 
 export function AppTopbar({ title = "Dashboard" }: AppTopbarProps) {
   const { session } = useAuthSession();
+  const signOut = useSignOut();
   const initials = getUserInitials(session?.user.fullName, session?.user.email);
 
   return (
@@ -87,7 +89,7 @@ export function AppTopbar({ title = "Dashboard" }: AppTopbarProps) {
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem variant="destructive" className="cursor-pointer">
+              <DropdownMenuItem variant="destructive" className="cursor-pointer" onClick={signOut}>
                 Sign out
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -107,7 +109,7 @@ export function AppTopbar({ title = "Dashboard" }: AppTopbarProps) {
               <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem variant="destructive" className="cursor-pointer">
+              <DropdownMenuItem variant="destructive" className="cursor-pointer" onClick={signOut}>
                 Sign out
               </DropdownMenuItem>
             </DropdownMenuContent>
