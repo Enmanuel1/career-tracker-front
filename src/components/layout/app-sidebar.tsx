@@ -64,7 +64,7 @@ export function AppSidebar() {
   return (
     <aside className="hidden h-screen w-72 shrink-0 flex-col border-r border-[#E2E8F0] bg-[#F1F5F9] md:flex">
       <div className="px-5 pt-5 pb-4">
-        <div className="flex items-center gap-3 rounded-xl bg-white px-3.5 py-3">
+        <div className="flex items-center gap-3 rounded-xl  py-3">
           <div className="flex size-10 items-center justify-center rounded-lg bg-[#4F46E5] text-sm font-semibold text-white">
             CT
           </div>

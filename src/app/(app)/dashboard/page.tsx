@@ -40,18 +40,30 @@ export default function DashboardPage() {
           title="Total Applications"
           value={summary.totalApplications}
           supportingText="Applications this month"
+          statusPill="+10%"
+          statusTone="success"
         />
         <SummaryCard
           title="Active Applications"
           value={summary.activeApplications}
           supportingText="In progress"
+          statusPill="+2%"
+          statusTone="info"
         />
         <SummaryCard
           title="Interviewing"
           value={summary.interviewing}
           supportingText="Scheduled calls"
+          statusPill="+15%"
+          statusTone="info"
         />
-        <SummaryCard title="Offers" value={summary.offers} supportingText="Pending offers" />
+        <SummaryCard
+          title="Offers"
+          value={summary.offers}
+          supportingText="Pending offers"
+          statusPill="0%"
+          statusTone="neutral"
+        />
         <SummaryCard
           title="Rejections"
           value={summary.rejections}
